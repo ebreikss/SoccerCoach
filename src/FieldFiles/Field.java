@@ -13,7 +13,22 @@ public class Field {
 	public void runSimulation(){
 		
 	}
-	public void switchFormation(String formation){
+	public void switchFormation(String newFormation){
 		
+	}
+	
+	//////////////////////////////////////////
+	
+	public Formation getFormation() {
+		return formation;
+	}
+	public void setFormation(Formation formation) {
+		this.formation = formation;
+	}
+	public static int getXdim() {
+		return XDIM;
+	}
+	public static int getYdim() {
+		return YDIM;
 	}
 }

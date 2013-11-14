@@ -17,7 +17,7 @@ public class Formation {
 	public void resetPlayers(){
 		
 	}
-	public void setupCornerKick(boolean youAreKicking){
+	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
 		
 	}
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
