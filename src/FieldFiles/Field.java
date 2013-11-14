@@ -1,8 +1,8 @@
 package fieldFiles;
 
 public class Field {
-	private final static int XDIM = 800;
-	private final static int YDIM = 400;
+	private final static int XDIM = 900;
+	private final static int YDIM = 675;
 	private Formation formation;
 	public void drag(){
 		

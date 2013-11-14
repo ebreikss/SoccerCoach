@@ -1,7 +1,7 @@
 package fieldFiles;
 import java.awt.*;
 
-public class Player extends Ball {
+public class Player extends Movable {
 	public enum Positon {
 		GOALIE (Color.gray),
 		BACK (Color.blue),
@@ -27,10 +27,15 @@ public class Player extends Ball {
 	
 	private boolean computer;
 	
-	public void simulate(){
+	@Override
+	public void simulate() {
+		// TODO Auto-generated method stub
 		
 	}
-	public void draw (Graphics g){
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
 		
 	}
 	
