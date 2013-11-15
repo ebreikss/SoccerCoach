@@ -13,13 +13,43 @@ FORWARD, rightWing, 160, 576
 END
 
 Metodo
-
+GOALIE, goalie, 10, 338
+BACK, leftBack, 40, 225
+BACK, rightBack, 40, 450
+MID, leftMid, 80, 135
+MID, centerMid, 90, 338
+MID, rightMid, 80, 473
+FORWARD, leftWing, 160, 95
+FORWARD, leftInside, 100, 192
+FORWARD, centerForward, 430, 384
+FORWARD, rightInside, 100, 480
+FORWARD, rightWing, 160, 576
 END
 
 WM
-
+GOALIE, goalie, 10, 338
+BACK, leftBack, 40, 105
+BACK, centerBack, 90, 338
+BACK, rightBack, 40, 566
+MID, leftMid, 80, 192
+MID, rightMid, 80, 480
+FORWARD, leftWing, 160, 95
+FORWARD, leftInside, 180, 192
+FORWARD, centerForward, 430, 384
+FORWARD, rightInside, 180, 480
+FORWARD, rightWing, 160, 576
 END
 
 ModernDiamond
-
+GOALIE, goalie, 10, 338
+BACK, leftBack, 40, 225
+BACK, centerBack, 40, 338
+BACK, rightBack, 40, 450
+MID, leftWing, 300, 112
+MID, leftDefMid, 200, 225
+MID, leftOffMid, 400, 225
+MID, rightDefMid, 200, 450
+MID, rightOffMid, 400, 450
+MID, rightWing, 300, 563
+FORWARD, centerForward, 430, 338
 END
