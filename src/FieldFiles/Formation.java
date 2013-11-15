@@ -4,9 +4,9 @@ import java.awt.*;
 
 public class Formation {
 	public static final int FREE_KICK_RADIUS = 50; // Incorrect
-	private Map<String,ArrayList<Player>> startFormations;
+
 	
-	public enum Side {
+	public enum Side { 
 		LEFT ("Left"),
 		RIGHT ("Right");
 		
@@ -38,9 +38,6 @@ public class Formation {
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
 		
 	}
-	public void loadConfigFiles(String startFormFile, String cornerFile){
-		
-	}
-	
+
 
 }

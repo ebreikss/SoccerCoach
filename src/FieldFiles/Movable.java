@@ -43,6 +43,7 @@ public abstract class Movable {
 	public void setDirectionAngle(int directionAngle) {
 		this.directionAngle = directionAngle;
 	}
+	public abstract void move();
 	
 	
 	

@@ -2,7 +2,7 @@ package fieldFiles;
 import java.awt.*;
 
 public class Player extends Movable {
-	public enum Positon {
+	public enum Positron {
 		GOALIE (Color.gray),
 		BACK (Color.blue),
 		MID (Color.yellow),
@@ -10,7 +10,7 @@ public class Player extends Movable {
 		
 		private Color value;
 		
-		Positon (Color aValue) {
+		Positron (Color aValue) {
 			value = aValue;
 		}
 		
@@ -18,12 +18,13 @@ public class Player extends Movable {
 			return value.toString();
 		}
 	}
-	
+
 	private char team;
 	private String name;
 	private String positionName;
 	private Color color;
 	private int distance;
+	private Positron position;
 	
 	private boolean computer;
 	
@@ -76,6 +77,9 @@ public class Player extends Movable {
 	}
 	public void setComputer(boolean computer) {
 		this.computer = computer;
+	}
+	public Positron getPosition(){
+		return position;
 	}
 	
 	

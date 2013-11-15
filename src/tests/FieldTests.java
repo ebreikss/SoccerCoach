@@ -2,21 +2,29 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
+import junit.framework.Assert;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import fieldFiles.Field;
 import fieldFiles.Formation;
+import fieldFiles.Player;
+import fieldFiles.Player.Positron;
 
 public class FieldTests {
 	
-	static Field field;
+	static Field soccerField;
 	static Formation formation;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		field = new Field(startFormFile, cornerFile);
-		field.getFormation().loadConfigFiles(startFormFile, cornerFile);
+		String startFormFile = "startFormsConfig";
+		String cornerFile = "cornerFile";
+		soccerField = new Field(startFormFile, cornerFile); // constructor also calls loadConfigFiles()
+		
 		// if you notice more things that need to change, do it. 
 		// Constructors and parameters mostly, but don't be afraid to add functions, etc
 		// for instance, loadConfigFiles() might need to be moved into Field
@@ -35,6 +43,45 @@ public class FieldTests {
 	@Test
 	public void loadConfigFilesTest(){
 		// tests both starting formations and corner kick loads right
+		ArrayList <Player> tempPlayers;
+		
+		// ensuring that the right amount of Formations are made
+		int expected = 4;
+		int actual = soccerField.getFormationList().size();
+		Assert.assertEquals(expected, actual);
+		expected = 5;
+		actual = 0;
+		int expecto = 1;
+		int actualo = 0;
+		tempPlayers = (ArrayList<Player>) soccerField.getFormationList().get("Pyramid");
+		for(int i = 0; i < tempPlayers.size(); i++){
+			if(tempPlayers.get(i).getPosition() == Positron.FORWARD){
+				actual++;
+			}
+			else if(tempPlayers.get(i).getPosition() == Positron.GOALIE){
+				actualo++;
+			}
+		}
+		Assert.assertEquals(expecto, actualo); // makes sure there's only one goalie 
+		Assert.assertEquals(expected, actual); // makes sure there are 5 forwards in 'pyramid'
+		expected = 5;
+		actual = 0;
+		expecto = 3;
+		actualo = 0;
+		tempPlayers = (ArrayList<Player>) soccerField.getFormationList().get("Metodo");
+		for(int i = 0; i < tempPlayers.size(); i++){
+			if(tempPlayers.get(i).getPosition() == Positron.FORWARD){
+				actual++;
+			}
+			else if(tempPlayers.get(i).getPosition() == Positron.MID){
+				actualo++;
+			}
+		}
+		Assert.assertEquals(expecto, actualo); // checks for correct amount of mids in 'metodo'
+		Assert.assertEquals(expected, actual); // checks for correct amount of forwards in 'metodo'
+		expected = 11;
+		actual = tempPlayers.size();
+		Assert.assertEquals(expected, actual);
 		
 		// check the template Players. Check some of their locations, colors, positions, etc (not *all* is needed)
 		fail("Not yet implemented");
@@ -45,6 +92,38 @@ public class FieldTests {
 	
 	@Test
 	public void humanPlayerMoveTest(){
+		// tests that the players move the correct amount in the correct direction
+		Player playa = new Player();
+		playa.setxCoord(50);
+		playa.setyCoord(50);
+		playa.setDirectionAngle(0);
+		playa.setVelocity(1);
+		playa.move();
+		int expected = 51;
+		int actual = playa.getxCoord();
+		Assert.assertEquals(expected,actual);
+		playa.setxCoord(50);
+		playa.setyCoord(50);
+		playa.setDirectionAngle(90);
+		playa.setVelocity(1);
+		playa.move();
+		expected = 49;
+		actual = playa.getyCoord();
+		Assert.assertEquals(expected,actual);
+		playa.setxCoord(50);
+		playa.setyCoord(50);
+		playa.setDirectionAngle(45);
+		playa.setVelocity(2);
+		playa.move();
+		expected = 51;
+		actual = playa.getxCoord();
+		Assert.assertEquals(expected,actual);
+		expected = 49;
+		actual = playa.getyCoord();
+		Assert.assertEquals(expected,actual);
+		
+		
+		
 		// given a velocity, location, and direction angle, given a time moves to right location 
 		// Test multiple situations and/or multiple players at once, and the BALL too
 		fail("Not yet implemented");
