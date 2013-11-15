@@ -40,6 +40,12 @@ public class Player extends Movable {
 		
 	}
 	
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	///////////////////////////////////////
 	
 	public char getTeam() {
@@ -81,6 +87,8 @@ public class Player extends Movable {
 	public Positron getPosition(){
 		return position;
 	}
+
+	
 	
 	
 }

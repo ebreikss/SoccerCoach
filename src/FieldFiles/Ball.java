@@ -14,5 +14,11 @@ public class Ball extends Movable {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
