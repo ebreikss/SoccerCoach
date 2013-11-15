@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class Formation {
 	public static final int FREE_KICK_RADIUS = 50; // Incorrect
-
 	
 	public enum Side { 
 		LEFT ("Left"),
@@ -21,22 +20,32 @@ public class Formation {
 		}
 	}
 	
-	private ArrayList<Player> teamX;
-	private ArrayList<Player> teamO;
 	
-	private ArrayList<Player> teamXtemplate;
-	private ArrayList<Player> teamOtemplate;
+	private ArrayList<Player> teamX; // human
+	private ArrayList<Player> teamO; // comp
+	
+	private ArrayList<Player> teamXtemplate; // human players
+	private ArrayList<Player> teamOtemplate; // computer players
 	private Map<String,ArrayList<Player>> cornerKickFormations;
-	
+	private String name;
+	private Side side;
 	
 	public void resetPlayers(){
 		
 	}
-	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
-		
+
+	public ArrayList<Player> getTeamX(){
+		return teamX;
 	}
-	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
-		
+	public ArrayList<Player> getTeamO(){
+		return teamO;
+	}
+	
+	public ArrayList<Player> getXtemplate(){
+		return teamXtemplate;
+	}
+	public ArrayList<Player> getOtemplate(){
+		return teamOtemplate;
 	}
 
 
