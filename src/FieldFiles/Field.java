@@ -15,7 +15,7 @@ public class Field {
 	private Formation compFormation;
 	private String startFormFile, cornerFile;
 	private Map<String,Formation> startFormations;  // found out formation class will be useful so i made this hold formations
-													// instead of a list of players
+	// instead of a list of players
 	private ArrayList<Player> humanTeam;
 	private ArrayList<Player> compTeam;
 
@@ -68,14 +68,14 @@ public class Field {
 
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
-		
+
 	}
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
-		
+
 	}
-	
+
 	//////////////////////////////////////////
-	
+
 	public Map getFormationList() {
 		return startFormations;
 	}

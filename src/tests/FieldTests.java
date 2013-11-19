@@ -48,7 +48,7 @@ public class FieldTests {
 		// ensuring that the right amount of Formations are made
 		int expected = 4;
 		int actual = soccerField.getFormationList().size();
-		
+
 		Assert.assertEquals(expected, actual);
 		expected = 5;
 		actual = 0;
@@ -150,7 +150,7 @@ public class FieldTests {
 		for (int i = 0; i < 100; i++) {
 			playa.setxCoord(50);
 			playa.setyCoord(50);
-			
+
 			playa.move();
 			if (playa.getxCoord() > 50)
 				movedRight++;
@@ -178,7 +178,7 @@ public class FieldTests {
 		for (int i = 0; i < 100; i++) {
 			playa.setxCoord(50);
 			playa.setyCoord(50);
-			
+
 			playa.move();
 			if (playa.getxCoord() > 50)
 				movedRight++;
@@ -197,7 +197,7 @@ public class FieldTests {
 
 		playa.setDirectionAngle(45);
 		playa.setVelocity(2);
-		
+
 		// Reset the counters
 		movedRight = 0;
 		movedLeft = 0;
@@ -207,7 +207,7 @@ public class FieldTests {
 		for (int i = 0; i < 100; i++) {
 			playa.setxCoord(50);
 			playa.setyCoord(50);
-			
+
 			playa.move();
 			if (playa.getxCoord() > 50)
 				movedRight++;
@@ -237,7 +237,7 @@ public class FieldTests {
 		for (int i = 0; i < 100; i++) {
 			playa.setxCoord(50);
 			playa.setyCoord(50);
-			
+
 			playa.move();
 			if (playa.getxCoord() > 50)
 				movedRight++;
@@ -262,7 +262,7 @@ public class FieldTests {
 		for (int i = 0; i < 100; i++) {
 			playa.setxCoord(50);
 			playa.setyCoord(50);
-			
+
 			playa.move();
 			if (playa.getxCoord() > 50)
 				movedRight++;
@@ -286,7 +286,7 @@ public class FieldTests {
 
 	@Test
 	public void switchFormationTest(){
-		
+
 		Formation humanFormation = (Formation) soccerField.getFormationList().get("Pyramid");
 		soccerField.setHumanFormation(humanFormation);
 		Formation compFormation = (Formation) soccerField.getFormationList().get("Metodo");
@@ -294,8 +294,8 @@ public class FieldTests {
 		soccerField.switchFormation("Metodo", "Pyramid");
 		Assert.assertTrue(soccerField.getHumanTeam().containsAll(((Formation) soccerField.getFormationList().get("Metodo")).getXtemplate()));
 		Assert.assertTrue(soccerField.getCompTeam().containsAll(((Formation) soccerField.getFormationList().get("Pyramid")).getXtemplate()));
-		
-		
+
+
 		// test the function in Field
 		// see that it only changes the template teams
 		// also test that Team Players get updated
@@ -308,7 +308,7 @@ public class FieldTests {
 		ArrayList<Player> tempHplayers = soccerField.getHumanTeam();
 		ArrayList<Player> tempCplayers = soccerField.getCompTeam();
 		for(int i = 0; i < tempHplayers.size(); i++){
-			
+
 			Assert.assertTrue(tempHplayers.get(i).getxCoord() > 780);
 			Assert.assertTrue(tempHplayers.get(i).getxCoord() < 900);
 			Assert.assertTrue(tempHplayers.get(i).getyCoord() > 188);
@@ -317,9 +317,9 @@ public class FieldTests {
 			Assert.assertTrue(tempCplayers.get(i).getxCoord() < 900);
 			Assert.assertTrue(tempCplayers.get(i).getyCoord() > 188);
 			Assert.assertTrue(tempCplayers.get(i).getyCoord() < 488);
-			
+
 		}
-		
+
 		// test location like in above test
 
 		// find a way to test that we can have mirror abilities, that 
@@ -328,7 +328,7 @@ public class FieldTests {
 	}
 
 	// took out freeKickTest because that will be better to look for in la GUI
-	
+
 	// ----------------------------------------------------------------------------------------
 	// TEST other
 

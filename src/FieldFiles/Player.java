@@ -7,13 +7,13 @@ public class Player extends Movable {
 		BACK (Color.blue),
 		MID (Color.yellow),
 		FORWARD (Color.red);
-		
+
 		private Color value;
-		
+
 		Positron (Color aValue) {
 			value = aValue;
 		}
-		
+
 		public String toString() {
 			return value.toString();
 		}
@@ -25,39 +25,39 @@ public class Player extends Movable {
 	private Color color;
 	private int distance, x, y;
 	private Positron position;
-	
+
 	private boolean computer;
 	public Player(){
 		// default just to make testing simple
 	}
-	
+
 	public Player(String position, String name, int x, int y){
 		this.position = Positron.valueOf(position);
 		this.name = name;
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	@Override
 	public void simulate() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	///////////////////////////////////////
-	
+
 	public char getTeam() {
 		return team;
 	}
