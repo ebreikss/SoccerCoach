@@ -292,8 +292,8 @@ public class FieldTests {
 		Formation compFormation = (Formation) soccerField.getFormationList().get("Metodo");
 		soccerField.setCompFormation(compFormation);
 		soccerField.switchFormation("Metodo", "Pyramid");
-		Assert.assertTrue(soccerField.getHumanTeam().contains(soccerField.getFormationList().get("Metodo")));
-		Assert.assertTrue(soccerField.getCompTeam().contains(soccerField.getFormationList().get("Pyramid")));
+		Assert.assertTrue(soccerField.getHumanTeam().containsAll(((Formation) soccerField.getFormationList().get("Metodo")).getXtemplate()));
+		Assert.assertTrue(soccerField.getCompTeam().containsAll(((Formation) soccerField.getFormationList().get("Pyramid")).getXtemplate()));
 		
 		
 		// test the function in Field

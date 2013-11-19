@@ -87,9 +87,13 @@ public class Field {
 	}
 	public void setHumanFormation(Formation formation) {
 		this.humanFormation = formation;
+		humanTeam = (ArrayList<Player>) humanFormation.getXtemplate().clone();
 	}
 	public void setCompFormation(Formation formation) {
+		// since we create a computer 'Formation' it seems logical to set compTeam to the teamXtemplate
 		this.compFormation = formation;
+		compFormation.resetPlayers();
+		compTeam = (ArrayList<Player>) compFormation.getXtemplate().clone(); 
 	}
 	public static int getXdim() {
 		return XDIM;
