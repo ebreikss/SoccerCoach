@@ -49,7 +49,7 @@ public class FieldTests {
 		int expected = 4;
 		int actual = soccerField.getFormationList().size();
 
-		Assert.assertEquals(expected, actual);
+		assertEquals(expected, actual);
 		expected = 5;
 		actual = 0;
 		int expecto = 1;
@@ -139,7 +139,7 @@ public class FieldTests {
 		playa.setxCoord(50);
 		playa.setyCoord(50);
 		playa.setDirectionAngle(0);
-		playa.setVelocity(5);
+		playa.setVelocity(5); // pixels/timestep
 		playa.setComputer(true);
 
 		int movedRight = 0;
@@ -161,16 +161,16 @@ public class FieldTests {
 			else 
 				movedUp++;
 		}
-		
+
 		assertTrue(movedRight > movedLeft);
 		assertTrue(movedDown > 15);
 		assertTrue(movedUp > 15);
 
 		// ---------------------------------------------------
 		// Part II
-		
+
 		playa.setDirectionAngle(90);
-		playa.setVelocity(1);
+		playa.setVelocity(10); // pixels/timestep
 
 		// Reset the counters
 		movedRight = 0;
@@ -193,7 +193,7 @@ public class FieldTests {
 				movedUp++;
 		}
 
-		System.out.println("Down: " + movedDown + "  Up: " + movedUp);
+		//System.out.println("Down: " + movedDown + "  Up: " + movedUp);
 		assertTrue(movedDown < movedUp);
 		assertTrue(movedRight > 15);
 		assertTrue(movedLeft > 15);
@@ -201,7 +201,7 @@ public class FieldTests {
 		// ---------------------------------------------------
 
 		playa.setDirectionAngle(45);
-		playa.setVelocity(2);
+		playa.setVelocity(20); // pixels/timestep
 
 		// Reset the counters
 		movedRight = 0;
@@ -224,15 +224,18 @@ public class FieldTests {
 				movedUp++;
 		}
 
+		//System.out.println("Down: " + movedDown + "  Up: " + movedUp);
 		assertTrue(movedDown < movedUp);
+		//System.out.println("Right: " + movedRight + "  Left: " + movedLeft);
 		assertTrue(movedRight > movedLeft);
-		
+
 		// --------------------------------------------------
+		// Not specified to move case
 
 		playa.setxCoord(50);
 		playa.setyCoord(50);
-		playa.setDirectionAngle((Integer) null); // maybe a random negative would work? or a different function?
-		playa.setVelocity(2);
+		playa.setDirectionAngle(-1); // were originally using 'null', switched to '-1'
+		playa.setVelocity(10);
 
 		// Reset the counters
 		movedRight = 0;
@@ -255,17 +258,23 @@ public class FieldTests {
 				movedUp++;
 		}
 
+		System.out.println("Down: " + movedDown);
 		assertTrue(movedDown > 15);
+		System.out.println("Up: " + movedUp);
 		assertTrue(movedUp > 15);
+		System.out.println("Right: " + movedRight);
 		assertTrue(movedRight > 15);
+		System.out.println("Left: " + movedLeft);
 		assertTrue(movedLeft > 15);
+
+
 		movedRight = 0;
 		movedLeft = 0;
 		movedUp = 0;
 		movedDown = 0;
-		
+
 		// ---------------------------------------------------
-		
+
 		playa.setDirectionAngle(135);
 
 		for (int i = 0; i < 100; i++) {
@@ -301,8 +310,8 @@ public class FieldTests {
 		Formation compFormation = (Formation) soccerField.getFormationList().get("Metodo");
 		soccerField.setCompFormation(compFormation);
 		soccerField.switchFormation("Metodo", "Pyramid");
-		Assert.assertTrue(soccerField.getHumanTeam().containsAll(((Formation) soccerField.getFormationList().get("Metodo")).getXtemplate()));
-		Assert.assertTrue(soccerField.getCompTeam().containsAll(((Formation) soccerField.getFormationList().get("Pyramid")).getXtemplate()));
+		assertTrue(soccerField.getHumanTeam().containsAll(((Formation) soccerField.getFormationList().get("Metodo")).getXtemplate()));
+		assertTrue(soccerField.getCompTeam().containsAll(((Formation) soccerField.getFormationList().get("Pyramid")).getXtemplate()));
 
 
 		// test the function in Field
@@ -313,19 +322,22 @@ public class FieldTests {
 
 	@Test
 	public void cornerKickFormationTest(){
-		soccerField.setupCornerKick(true, true);
+		soccerField.setupCornerKick(true, true); // HUMAN KICKING -- TOP RIGHT CORNER
 		ArrayList<Player> tempHplayers = soccerField.getHumanTeam();
 		ArrayList<Player> tempCplayers = soccerField.getCompTeam();
 		for(int i = 0; i < tempHplayers.size(); i++){
-
-			Assert.assertTrue(tempHplayers.get(i).getxCoord() > 780);
-			Assert.assertTrue(tempHplayers.get(i).getxCoord() < 900);
-			Assert.assertTrue(tempHplayers.get(i).getyCoord() > 188);
-			Assert.assertTrue(tempHplayers.get(i).getyCoord() < 488);
-			Assert.assertTrue(tempCplayers.get(i).getxCoord() > 780);
-			Assert.assertTrue(tempCplayers.get(i).getxCoord() < 900);
-			Assert.assertTrue(tempCplayers.get(i).getyCoord() > 188);
-			Assert.assertTrue(tempCplayers.get(i).getyCoord() < 488);
+			if (!tempHplayers.get(i).isKickingOrDefending()) {
+				Assert.assertTrue(tempHplayers.get(i).getxCoord() > 780);
+				Assert.assertTrue(tempHplayers.get(i).getxCoord() < 900);
+				Assert.assertTrue(tempHplayers.get(i).getyCoord() > 188);
+				Assert.assertTrue(tempHplayers.get(i).getyCoord() < 488);
+			}
+			if (!tempCplayers.get(i).isKickingOrDefending()) {
+				Assert.assertTrue(tempCplayers.get(i).getxCoord() > 780);
+				Assert.assertTrue(tempCplayers.get(i).getxCoord() < 900);
+				Assert.assertTrue(tempCplayers.get(i).getyCoord() > 188);
+				Assert.assertTrue(tempCplayers.get(i).getyCoord() < 488);
+			}
 
 		}
 

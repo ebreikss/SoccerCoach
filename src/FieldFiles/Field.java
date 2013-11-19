@@ -65,10 +65,13 @@ public class Field {
 
 	}
 	public void switchFormation(String humanFormation, String compFormation){
-
+		humanTeam = (ArrayList<Player>) startFormations.get(humanFormation).getXtemplate().clone();
+		compTeam = (ArrayList<Player>) startFormations.get(compFormation).getXtemplate().clone();
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
-
+		// one mid will be randomly placed out of the box to defend
+		// one mid will be randomly selected to be kicking
+		// two defenders on defending team will be placed in smaller goal area
 	}
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
 

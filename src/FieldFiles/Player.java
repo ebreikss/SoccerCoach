@@ -33,9 +33,18 @@ public class Player extends Movable {
 	private int distance; // We have xCoord and yCoord for these: x, y;
 	private Positron position;
 	private boolean computer;
+	private boolean isKickingOrDefending = false; // for corner kicks
 
 	public Player(){
 		// default just to make testing simple
+	}
+
+	public boolean isKickingOrDefending() {
+		return isKickingOrDefending;
+	}
+
+	public void setKickingOrDefending(boolean isKickingOrDefending) {
+		this.isKickingOrDefending = isKickingOrDefending;
 	}
 
 	public Player(String position, String name, int xCoord, int yCoord){
@@ -57,49 +66,74 @@ public class Player extends Movable {
 
 	}
 
+	private void randomWalk() {
+		Random rand = new Random();
+		int randVel = rand.nextInt(Math.abs(velocity)) / 2;
+		System.out.println("Randomly Walked");
+
+		// x-direction
+		if (rand.nextInt(2) == 0)
+			xCoord += randVel;
+		else
+			xCoord -= randVel;
+
+		// y-direction
+		if (rand.nextInt(2) == 0)
+			yCoord += randVel;
+		else 
+			yCoord -= randVel;
+	}
+
 	@Override
 	public void move() {
 		if (computer) {
-			//System.out.println(directionAngle);
-			double radianAngle = directionAngle * Math.PI / 180;
-			//System.out.println(radianAngle);
-			int xVelocity = (int) (Math.cos(radianAngle) * velocity);
-			int yVelocity = (int) (Math.sin(radianAngle) * velocity);
 
-			Random rand = new Random();
+			if (directionAngle < 0) // aka, null 
+				randomWalk();
+			else { // Move regularly
+				//System.out.println(directionAngle);
+				double radianAngle = directionAngle * Math.PI / 180;
+				//System.out.println(radianAngle);
+				int xVelocity = (int) (Math.cos(radianAngle) * velocity);
+				int yVelocity = (int) (Math.sin(radianAngle) * velocity);
+				//System.out.println("xVel: " + xVelocity);
+				//System.out.println("yVel: " + yVelocity);
 
-			// X-Direction
-			if (xVelocity != 0) {
-				int xDist = rand.nextInt(Math.abs(xVelocity));
-				if (xVelocity < 0)
-					xDist *= -1;
-				if (rand.nextInt(10) < 9)  // 90% chance of moving correct direction
-					xCoord += xDist;  // move random number of pixels from 0 - xVel
-				else // move wrong direction
-					xCoord += Math.floor(-xDist/2); // move randomly but not as far
-			} else {
-				// wander in this direction
-				if (rand.nextInt(2) == 0)
-					xCoord += 1;
-				else
-					xCoord += -1;
-			}
+				Random rand = new Random();
 
-			// Y-Direction
-			if (yVelocity != 0) {
-				int yDist = rand.nextInt(Math.abs(yVelocity));
-				if (yVelocity < 0)
-					yDist *= -1;
-				if (rand.nextInt(10) < 9)
-					yCoord += -yDist; // Negative cuz y-axis is backwards
-				else
-					yCoord += Math.floor(yDist/2);
-			} else {
-				// wander in this direction
-				if (rand.nextInt(2) == 0)
-					yCoord += 1;
-				else
-					yCoord += -1;
+				// X-Direction
+				if (xVelocity != 0) {
+					int xDist = rand.nextInt(Math.abs(xVelocity));
+					if (xVelocity < 0)
+						xDist *= -1;
+					if (rand.nextInt(10) < 9)  // 90% chance of moving correct direction
+						xCoord += xDist;  // move random number of pixels from 0 - xVel
+					else // move wrong direction
+						xCoord += -Math.floor(xDist/2); // move randomly but not as far
+				} else {
+					// wander in this direction
+					if (rand.nextInt(2) == 0)
+						xCoord += 1;
+					else
+						xCoord += -1;
+				}
+
+				// Y-Direction
+				if (yVelocity != 0) {
+					int yDist = rand.nextInt(Math.abs(yVelocity));
+					if (yVelocity < 0)
+						yDist *= -1;
+					if (rand.nextInt(10) < 9)
+						yCoord += -yDist; // Negative cuz y-axis is backwards
+					else
+						yCoord += Math.floor(yDist/2);
+				} else {
+					// wander in this direction
+					if (rand.nextInt(2) == 0)
+						yCoord += 1;
+					else
+						yCoord += -1;
+				}
 			}
 		}
 
