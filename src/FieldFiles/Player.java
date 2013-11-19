@@ -1,5 +1,6 @@
-package fieldFiles;
+package FieldFiles;
 import java.awt.*;
+import java.util.Random;
 
 public class Player extends Movable {
 	public enum Positron {
@@ -19,23 +20,29 @@ public class Player extends Movable {
 		}
 	}
 
+	//	protected int xCoord;
+	//	protected int yCoord;
+	//	protected int radius;
+	//	protected int velocity;
+	//	protected int directionAngle;
+
 	private char team;
 	private String name;
 	private String positionName;
 	private Color color;
-	private int distance, x, y;
+	private int distance; // We have xCoord and yCoord for these: x, y;
 	private Positron position;
-
 	private boolean computer;
+
 	public Player(){
 		// default just to make testing simple
 	}
 
-	public Player(String position, String name, int x, int y){
+	public Player(String position, String name, int xCoord, int yCoord){
 		this.position = Positron.valueOf(position);
 		this.name = name;
-		this.x = x;
-		this.y = y;
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
 	}
 
 	@Override
@@ -52,7 +59,49 @@ public class Player extends Movable {
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
+		if (computer) {
+			//System.out.println(directionAngle);
+			double radianAngle = directionAngle * Math.PI / 180;
+			//System.out.println(radianAngle);
+			int xVelocity = (int) (Math.cos(radianAngle) * velocity);
+			int yVelocity = (int) (Math.sin(radianAngle) * velocity);
+
+			Random rand = new Random();
+
+			// X-Direction
+			if (xVelocity != 0) {
+				int xDist = rand.nextInt(Math.abs(xVelocity));
+				if (xVelocity < 0)
+					xDist *= -1;
+				if (rand.nextInt(10) < 9)  // 90% chance of moving correct direction
+					xCoord += xDist;  // move random number of pixels from 0 - xVel
+				else // move wrong direction
+					xCoord += Math.floor(-xDist/2); // move randomly but not as far
+			} else {
+				// wander in this direction
+				if (rand.nextInt(2) == 0)
+					xCoord += 1;
+				else
+					xCoord += -1;
+			}
+
+			// Y-Direction
+			if (yVelocity != 0) {
+				int yDist = rand.nextInt(Math.abs(yVelocity));
+				if (yVelocity < 0)
+					yDist *= -1;
+				if (rand.nextInt(10) < 9)
+					yCoord += -yDist; // Negative cuz y-axis is backwards
+				else
+					yCoord += Math.floor(yDist/2);
+			} else {
+				// wander in this direction
+				if (rand.nextInt(2) == 0)
+					yCoord += 1;
+				else
+					yCoord += -1;
+			}
+		}
 
 	}
 

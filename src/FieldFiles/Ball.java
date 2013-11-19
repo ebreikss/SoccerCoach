@@ -1,4 +1,4 @@
-package fieldFiles;
+package FieldFiles;
 import java.awt.*;
 
 public class Ball extends Movable {

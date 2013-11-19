@@ -9,10 +9,10 @@ import junit.framework.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import fieldFiles.Field;
-import fieldFiles.Formation;
-import fieldFiles.Player;
-import fieldFiles.Player.Positron;
+import FieldFiles.Field;
+import FieldFiles.Formation;
+import FieldFiles.Player;
+import FieldFiles.Player.Positron;
 
 public class FieldTests {
 
@@ -139,7 +139,7 @@ public class FieldTests {
 		playa.setxCoord(50);
 		playa.setyCoord(50);
 		playa.setDirectionAngle(0);
-		playa.setVelocity(1);
+		playa.setVelocity(5);
 		playa.setComputer(true);
 
 		int movedRight = 0;
@@ -161,11 +161,14 @@ public class FieldTests {
 			else 
 				movedUp++;
 		}
-
+		
 		assertTrue(movedRight > movedLeft);
 		assertTrue(movedDown > 15);
 		assertTrue(movedUp > 15);
 
+		// ---------------------------------------------------
+		// Part II
+		
 		playa.setDirectionAngle(90);
 		playa.setVelocity(1);
 
@@ -190,10 +193,12 @@ public class FieldTests {
 				movedUp++;
 		}
 
+		System.out.println("Down: " + movedDown + "  Up: " + movedUp);
 		assertTrue(movedDown < movedUp);
 		assertTrue(movedRight > 15);
 		assertTrue(movedLeft > 15);
 
+		// ---------------------------------------------------
 
 		playa.setDirectionAngle(45);
 		playa.setVelocity(2);
@@ -221,11 +226,12 @@ public class FieldTests {
 
 		assertTrue(movedDown < movedUp);
 		assertTrue(movedRight > movedLeft);
-
+		
+		// --------------------------------------------------
 
 		playa.setxCoord(50);
 		playa.setyCoord(50);
-		playa.setDirectionAngle((Integer) null); // maybe a random negaitive would work? or a different function?
+		playa.setDirectionAngle((Integer) null); // maybe a random negative would work? or a different function?
 		playa.setVelocity(2);
 
 		// Reset the counters
@@ -257,6 +263,9 @@ public class FieldTests {
 		movedLeft = 0;
 		movedUp = 0;
 		movedDown = 0;
+		
+		// ---------------------------------------------------
+		
 		playa.setDirectionAngle(135);
 
 		for (int i = 0; i < 100; i++) {

@@ -1,13 +1,13 @@
-package fieldFiles;
+package FieldFiles;
 
 import java.awt.Graphics;
 
 public abstract class Movable {
-	private int xCoord;
-	private int yCoord;
-	private int radius;
-	private int velocity;
-	private int directionAngle;
+	protected int xCoord;
+	protected int yCoord;
+	protected int radius;
+	protected int velocity;
+	protected double directionAngle;
 	
 	public abstract void simulate();
 	public abstract void draw(Graphics g);
@@ -37,10 +37,10 @@ public abstract class Movable {
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
 	}
-	public int getDirectionAngle() {
+	public double getDirectionAngle() {
 		return directionAngle;
 	}
-	public void setDirectionAngle(int directionAngle) {
+	public void setDirectionAngle(double directionAngle) {
 		this.directionAngle = directionAngle;
 	}
 	public abstract void move();
