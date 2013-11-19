@@ -11,7 +11,6 @@ FORWARD, centerForward, 430, 384
 FORWARD, rightInside, 180, 480
 FORWARD, rightWing, 160, 576
 END
-
 Metodo
 GOALIE, goalie, 10, 338
 BACK, leftBack, 40, 225
@@ -25,7 +24,6 @@ FORWARD, centerForward, 430, 384
 FORWARD, rightInside, 100, 480
 FORWARD, rightWing, 160, 576
 END
-
 WM
 GOALIE, goalie, 10, 338
 BACK, leftBack, 40, 105
@@ -39,7 +37,6 @@ FORWARD, centerForward, 430, 384
 FORWARD, rightInside, 180, 480
 FORWARD, rightWing, 160, 576
 END
-
 ModernDiamond
 GOALIE, goalie, 10, 338
 BACK, leftBack, 40, 225

@@ -30,8 +30,30 @@ public class Formation {
 	private String name;
 	private Side side;
 	
+	public Formation(String name){
+		this.name = name;
+		// allocating space
+		teamX = new ArrayList<Player>();
+		teamO = new ArrayList<Player>();
+		teamXtemplate = new ArrayList<Player>();
+		teamOtemplate = new ArrayList<Player>();
+	}
+	
 	public void resetPlayers(){
-		
+		// will be used initially to set the teams to the templates
+		// can be used to reset each team back to their templates
+		teamX = (ArrayList<Player>) teamXtemplate.clone();
+		teamO = (ArrayList<Player>) teamOtemplate.clone();
+	}
+	public void mirrorTeamXtemplate(){
+		// used to set the computer team to the same formation as human team
+		for(int i = 0; i < teamXtemplate.size(); i++){
+			teamOtemplate.add(teamXtemplate.get(i));
+			teamOtemplate.get(i).setComputer(true);
+		}
+	}
+	public String getName(){
+		return name;
 	}
 
 	public ArrayList<Player> getTeamX(){

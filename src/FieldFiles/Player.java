@@ -23,10 +23,20 @@ public class Player extends Movable {
 	private String name;
 	private String positionName;
 	private Color color;
-	private int distance;
+	private int distance, x, y;
 	private Positron position;
 	
 	private boolean computer;
+	public Player(){
+		// default just to make testing simple
+	}
+	
+	public Player(String position, String name, int x, int y){
+		this.position = Positron.valueOf(position);
+		this.name = name;
+		this.x = x;
+		this.y = y;
+	}
 	
 	@Override
 	public void simulate() {

@@ -48,12 +48,13 @@ public class FieldTests {
 		// ensuring that the right amount of Formations are made
 		int expected = 4;
 		int actual = soccerField.getFormationList().size();
+		
 		Assert.assertEquals(expected, actual);
 		expected = 5;
 		actual = 0;
 		int expecto = 1;
 		int actualo = 0;
-		tempPlayers = (ArrayList<Player>) soccerField.getFormationList().get("Pyramid");
+		tempPlayers = (ArrayList<Player>) ((Formation) soccerField.getFormationList().get("Pyramid")).getTeamX();
 		for(int i = 0; i < tempPlayers.size(); i++){
 			if(tempPlayers.get(i).getPosition() == Positron.FORWARD){
 				actual++;
@@ -68,7 +69,7 @@ public class FieldTests {
 		actual = 0;
 		expecto = 3;
 		actualo = 0;
-		tempPlayers = (ArrayList<Player>) soccerField.getFormationList().get("Metodo");
+		tempPlayers = (ArrayList<Player>) ((Formation) soccerField.getFormationList().get("Metodo")).getTeamX();
 		for(int i = 0; i < tempPlayers.size(); i++){
 			if(tempPlayers.get(i).getPosition() == Positron.FORWARD){
 				actual++;
