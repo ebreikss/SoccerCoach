@@ -16,6 +16,9 @@ public class Field {
 	private final static int YPENALTYBOX = 300;
 	private final static int XGOALIEBOX = 60;
 	private final static int YGOALIEBOX = 135;
+	
+	private Ball ball;
+	
 	private Formation humanFormation;
 	private Formation compFormation;
 	private String startFormFile, cornerFile;
@@ -43,7 +46,6 @@ public class Field {
 			String[] line = "nothing".split(",");
 			while(in.hasNext()){
 				name = in.nextLine();
-				System.out.println(name);
 				formation = new Formation(name);
 				line = in.nextLine().split(", ");
 				while(!line[0].equals("END")){
@@ -111,6 +113,7 @@ public class Field {
 				playa.setyCoord(rand.nextInt(YPENALTYBOX) - YPENALTYBOX/2 + (YDIM - YPENALTYBOX));
 			} 
 		}
+		
 		for (Player playa : kicking) {
 			if (playa.getPosition().equals(Player.Positron.GOALIE)) {
 				playa.setxCoord(rand.nextInt(XDIM/9) + XDIM/3);
@@ -121,8 +124,13 @@ public class Field {
 			} else if (playa.getPosition().equals(Player.Positron.MID)) {
 				if (!midset) {
 					playa.setKicking(true);
-					playa.setxCoord(XDIM);
-					playa.setyCoord(YDIM);
+					if (topCorner) {
+						playa.setxCoord(XDIM);
+						playa.setyCoord(0);
+					} else {
+						playa.setxCoord(XDIM);
+						playa.setyCoord(YDIM);
+					}
 					midset = true;
 				} else {
 				playa.setxCoord(rand.nextInt(XPENALTYBOX) + XDIM-3/2*XPENALTYBOX);
@@ -134,19 +142,19 @@ public class Field {
 			}
 		}
 		
-		/*if (!youAreKicking) {
-			mirrorHorizontal(kicking);
-			mirrorHorizontal(defending);
+		if (!youAreKicking) {
+			mirror(kicking);
+			mirror(defending);
 		}
 		
-		if (!topCorner) {
-			mirrorVertical(kicking);
-			mirrorVertical(defending);
-		}*/
-		
-		
-	
 	}
+	
+	public void mirror(ArrayList <Player> playas) {
+		for (Player playa : playas)
+			playa.setxCoord(XDIM - playa.getxCoord());
+	}
+	
+	
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
 
 	}
@@ -170,7 +178,8 @@ public class Field {
 		// since we create a computer 'Formation' it seems logical to set compTeam to the teamXtemplate
 		this.compFormation = formation;
 		compFormation.resetPlayers();
-		compTeam = (ArrayList<Player>) compFormation.getXtemplate().clone(); 
+		mirror(compFormation.getOtemplate());
+		compTeam = (ArrayList<Player>) compFormation.getOtemplate().clone(); 
 	}
 	public static int getXdim() {
 		return XDIM;

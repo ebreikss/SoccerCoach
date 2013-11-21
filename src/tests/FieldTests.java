@@ -341,7 +341,7 @@ public class FieldTests {
 				Assert.assertTrue(tempHplayers.get(i).getyCoord() < 525);
 			}
 			// Check computer players, they're all going to be in the box
-				System.out.println("                    "+tempCplayers.get(i).getyCoord());
+				//System.out.println("                    "+tempCplayers.get(i).getyCoord());
 				Assert.assertTrue(tempCplayers.get(i).getxCoord() > 780);
 				Assert.assertTrue(tempCplayers.get(i).getxCoord() < 900);
 				Assert.assertTrue(tempCplayers.get(i).getyCoord() > 150);
