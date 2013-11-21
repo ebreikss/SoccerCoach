@@ -69,7 +69,7 @@ public class Player extends Movable {
 	private void randomWalk() {
 		Random rand = new Random();
 		int randVel = rand.nextInt(Math.abs(velocity)) / 2;
-		System.out.println("Randomly Walked");
+		//System.out.println("Randomly Walked");
 
 		// x-direction
 		if (rand.nextInt(2) == 0)

@@ -12,6 +12,10 @@ import java.util.Scanner;
 public class Field {
 	private final static int XDIM = 900;
 	private final static int YDIM = 675;
+	private final static int XPENALTYBOX = 120;
+	private final static int YPENALTYBOX = 300;
+	private final static int XGOALIEBOX = 60;
+	private final static int YGOALIEBOX = 135;
 	private Formation humanFormation;
 	private Formation compFormation;
 	private String startFormFile, cornerFile;
@@ -71,26 +75,77 @@ public class Field {
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
 		Random rand = new Random();
+		ArrayList<Player> kicking, defending;
+		if (youAreKicking) {
+			kicking = humanTeam;
+			defending = compTeam;
+		} else {
+			kicking = compTeam;
+			defending = humanTeam;
+		}
+		
+		boolean midset = false;
+		int defenders = 0;
+		
 		// one mid will be randomly placed out of the box to defend
 		// one mid will be randomly selected to be kicking
 		// two defenders on defending team will be placed in smaller goal area
-		if (topCorner) {
-			for (Player playa : humanTeam) {
-				if (playa.getPositionName().equalsIgnoreCase("goalie")) {
-					playa.setxCoord(rand.nextInt(100) + 250);
-					playa.setyCoord(rand.nextInt(10) + 332);
-				} else if (playa.getPositionName().equalsIgnoreCase("back")) {
-					playa.setxCoord(rand.nextInt(100) + 450);
-					playa.setyCoord(rand.nextInt(100) + 287);
-				} else if (playa.getPositionName().equalsIgnoreCase("mid")) {
-					playa.setxCoord(rand.nextInt(130) + 700);
-					playa.setyCoord(rand.nextInt(300) + 187);
-				} else if (playa.getPositionName().equalsIgnoreCase("forward")) {
-					playa.setxCoord(rand.nextInt(130) + 800);
-					playa.setyCoord(rand.nextInt(300) + 187);
+		for (Player playa : defending) {
+			if (playa.getPosition().equals(Player.Positron.GOALIE)) {
+				playa.setxCoord(rand.nextInt(XDIM/100) + XDIM - XDIM/100);
+				playa.setyCoord(rand.nextInt(10) + YDIM/2-10);
+			} else if (playa.getPosition().equals(Player.Positron.BACK)) {
+				if (defenders < 2) {
+					playa.setxCoord(XDIM-1);
+					if (defenders < 1)
+						playa.setyCoord((YDIM-YGOALIEBOX)/2);
+					else
+						playa.setyCoord((YDIM-YGOALIEBOX)/2 + YGOALIEBOX);
+					defenders++;
+				} else {
+					playa.setxCoord(rand.nextInt(XDIM/9) + XDIM-XDIM/9);
+					playa.setyCoord(rand.nextInt(YPENALTYBOX) + (YDIM-YPENALTYBOX)/2);
 				}
+			} else { // MID or FORWARD
+				playa.setxCoord(rand.nextInt(XPENALTYBOX) + XDIM-3/2*XPENALTYBOX);
+				playa.setyCoord(rand.nextInt(YPENALTYBOX) - YPENALTYBOX/2 + (YDIM - YPENALTYBOX));
+			} 
+		}
+		for (Player playa : kicking) {
+			if (playa.getPosition().equals(Player.Positron.GOALIE)) {
+				playa.setxCoord(rand.nextInt(XDIM/9) + XDIM/3);
+				playa.setyCoord(rand.nextInt(10) + YDIM/2-10);
+			} else if (playa.getPosition().equals(Player.Positron.BACK)) {
+				playa.setxCoord(rand.nextInt(XDIM/9) + XDIM/2);
+				playa.setyCoord(rand.nextInt(YPENALTYBOX) + YDIM/2 - YPENALTYBOX/2);
+			} else if (playa.getPosition().equals(Player.Positron.MID)) {
+				if (!midset) {
+					playa.setKicking(true);
+					playa.setxCoord(XDIM);
+					playa.setyCoord(YDIM);
+					midset = true;
+				} else {
+				playa.setxCoord(rand.nextInt(XPENALTYBOX) + XDIM-3/2*XPENALTYBOX);
+				playa.setyCoord(rand.nextInt(YPENALTYBOX) - YPENALTYBOX/2 + (YDIM - YPENALTYBOX));
+				}
+			} else if (playa.getPosition().equals(Player.Positron.FORWARD)) {
+				playa.setxCoord(rand.nextInt(XDIM/9) + XDIM-XDIM/9);
+				playa.setyCoord(rand.nextInt(YPENALTYBOX) + (YDIM-YPENALTYBOX)/2);
 			}
 		}
+		
+		/*if (!youAreKicking) {
+			mirrorHorizontal(kicking);
+			mirrorHorizontal(defending);
+		}
+		
+		if (!topCorner) {
+			mirrorVertical(kicking);
+			mirrorVertical(defending);
+		}*/
+		
+		
+	
 	}
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
 

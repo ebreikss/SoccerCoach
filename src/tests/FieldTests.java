@@ -335,16 +335,19 @@ public class FieldTests {
 				humanSum++;
 				Assert.assertTrue(tempHplayers.get(i).getxCoord() > 780);
 				Assert.assertTrue(tempHplayers.get(i).getxCoord() < 900);
-				Assert.assertTrue(tempHplayers.get(i).getyCoord() > 188);
-				Assert.assertTrue(tempHplayers.get(i).getyCoord() < 488);
+				//System.out.println(tempHplayers.get(i).getPosition());
+				//System.out.println("                    "+tempHplayers.get(i).getyCoord());
+				Assert.assertTrue(tempHplayers.get(i).getyCoord() > 150);
+				Assert.assertTrue(tempHplayers.get(i).getyCoord() < 525);
 			}
 			// Check computer players, they're all going to be in the box
+				System.out.println("                    "+tempCplayers.get(i).getyCoord());
 				Assert.assertTrue(tempCplayers.get(i).getxCoord() > 780);
 				Assert.assertTrue(tempCplayers.get(i).getxCoord() < 900);
-				Assert.assertTrue(tempCplayers.get(i).getyCoord() > 188);
-				Assert.assertTrue(tempCplayers.get(i).getyCoord() < 488);
+				Assert.assertTrue(tempCplayers.get(i).getyCoord() > 150);
+				Assert.assertTrue(tempCplayers.get(i).getyCoord() < 525);
 		}
-		assertEquals(humanSum,8); // We didn't place any defenders
+		assertEquals(humanSum,7); // We didn't place any defenders
 
 		// test location like in above test
 
