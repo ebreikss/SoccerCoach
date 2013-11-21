@@ -322,24 +322,29 @@ public class FieldTests {
 
 	@Test
 	public void cornerKickFormationTest(){
+		soccerField.switchFormation("Metodo", "ModernDiamond");
+		
 		soccerField.setupCornerKick(true, true); // HUMAN KICKING -- TOP RIGHT CORNER
 		ArrayList<Player> tempHplayers = soccerField.getHumanTeam();
 		ArrayList<Player> tempCplayers = soccerField.getCompTeam();
+		int humanSum = 0;
 		for(int i = 0; i < tempHplayers.size(); i++){
-			if (!tempHplayers.get(i).isKickingOrDefending()) {
+			if (!tempHplayers.get(i).isKicking() && (tempHplayers.get(i).getPosition().equals(Player.Positron.FORWARD)
+					|| tempHplayers.get(i).getPosition().equals(Player.Positron.MID)) ) {
+				// Check human players. Kicker and defender (including goalie) are not in the box
+				humanSum++;
 				Assert.assertTrue(tempHplayers.get(i).getxCoord() > 780);
 				Assert.assertTrue(tempHplayers.get(i).getxCoord() < 900);
 				Assert.assertTrue(tempHplayers.get(i).getyCoord() > 188);
 				Assert.assertTrue(tempHplayers.get(i).getyCoord() < 488);
 			}
-			if (!tempCplayers.get(i).isKickingOrDefending()) {
+			// Check computer players, they're all going to be in the box
 				Assert.assertTrue(tempCplayers.get(i).getxCoord() > 780);
 				Assert.assertTrue(tempCplayers.get(i).getxCoord() < 900);
 				Assert.assertTrue(tempCplayers.get(i).getyCoord() > 188);
 				Assert.assertTrue(tempCplayers.get(i).getyCoord() < 488);
-			}
-
 		}
+		assertEquals(humanSum,8); // We didn't place any defenders
 
 		// test location like in above test
 

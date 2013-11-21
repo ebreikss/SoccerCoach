@@ -33,18 +33,18 @@ public class Player extends Movable {
 	private int distance; // We have xCoord and yCoord for these: x, y;
 	private Positron position;
 	private boolean computer;
-	private boolean isKickingOrDefending = false; // for corner kicks
+	private boolean isKicking = false; // for corner kicks
 
 	public Player(){
 		// default just to make testing simple
 	}
 
-	public boolean isKickingOrDefending() {
-		return isKickingOrDefending;
+	public boolean isKicking() {
+		return isKicking;
 	}
 
-	public void setKickingOrDefending(boolean isKickingOrDefending) {
-		this.isKickingOrDefending = isKickingOrDefending;
+	public void setKicking(boolean isKicking) {
+		this.isKicking = isKicking;
 	}
 
 	public Player(String position, String name, int xCoord, int yCoord){
