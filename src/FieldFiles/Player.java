@@ -86,18 +86,15 @@ public class Player extends Movable {
 
 	@Override
 	public void move() {
+		double radianAngle = directionAngle * Math.PI / 180;
+		int xVelocity = (int) (Math.cos(radianAngle) * velocity);
+		int yVelocity = (int) (Math.sin(radianAngle) * velocity);
+		
 		if (computer) {
 
 			if (directionAngle < 0) // aka, null 
 				randomWalk();
 			else { // Move regularly
-				//System.out.println(directionAngle);
-				double radianAngle = directionAngle * Math.PI / 180;
-				//System.out.println(radianAngle);
-				int xVelocity = (int) (Math.cos(radianAngle) * velocity);
-				int yVelocity = (int) (Math.sin(radianAngle) * velocity);
-				//System.out.println("xVel: " + xVelocity);
-				//System.out.println("yVel: " + yVelocity);
 
 				Random rand = new Random();
 
@@ -135,8 +132,10 @@ public class Player extends Movable {
 						yCoord += -1;
 				}
 			}
+		} else	{ 		// human player
+			xCoord += xVelocity;
+			yCoord -= yVelocity;
 		}
-
 	}
 
 	///////////////////////////////////////

@@ -258,13 +258,13 @@ public class FieldTests {
 				movedUp++;
 		}
 
-		System.out.println("Down: " + movedDown);
+		//System.out.println("Down: " + movedDown);
 		assertTrue(movedDown > 15);
-		System.out.println("Up: " + movedUp);
+		//System.out.println("Up: " + movedUp);
 		assertTrue(movedUp > 15);
-		System.out.println("Right: " + movedRight);
+		//System.out.println("Right: " + movedRight);
 		assertTrue(movedRight > 15);
-		System.out.println("Left: " + movedLeft);
+		//System.out.println("Left: " + movedLeft);
 		assertTrue(movedLeft > 15);
 
 

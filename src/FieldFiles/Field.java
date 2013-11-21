@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Field {
@@ -69,9 +70,27 @@ public class Field {
 		compTeam = (ArrayList<Player>) startFormations.get(compFormation).getXtemplate().clone();
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
+		Random rand = new Random();
 		// one mid will be randomly placed out of the box to defend
 		// one mid will be randomly selected to be kicking
 		// two defenders on defending team will be placed in smaller goal area
+		if (topCorner) {
+			for (Player playa : humanTeam) {
+				if (playa.getPositionName().equalsIgnoreCase("goalie")) {
+					playa.setxCoord(rand.nextInt(100) + 250);
+					playa.setyCoord(rand.nextInt(10) + 332);
+				} else if (playa.getPositionName().equalsIgnoreCase("back")) {
+					playa.setxCoord(rand.nextInt(100) + 450);
+					playa.setyCoord(rand.nextInt(100) + 287);
+				} else if (playa.getPositionName().equalsIgnoreCase("mid")) {
+					playa.setxCoord(rand.nextInt(130) + 700);
+					playa.setyCoord(rand.nextInt(300) + 187);
+				} else if (playa.getPositionName().equalsIgnoreCase("forward")) {
+					playa.setxCoord(rand.nextInt(130) + 800);
+					playa.setyCoord(rand.nextInt(300) + 187);
+				}
+			}
+		}
 	}
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
 
