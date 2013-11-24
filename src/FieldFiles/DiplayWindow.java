@@ -1,4 +1,4 @@
-package FieldFiles;
+package fieldFiles;
 
 public class DiplayWindow {
 	private Field field;

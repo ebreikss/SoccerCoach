@@ -1,4 +1,4 @@
-package FieldFiles;
+package fieldFiles;
 import java.util.*;
 import java.awt.*;
 
@@ -29,9 +29,11 @@ public class Formation {
 	private Map<String,ArrayList<Player>> cornerKickFormations;
 	private String name;
 	private Side side;
+	private Field field;
 
-	public Formation(String name){
+	public Formation(String name, Field field){
 		this.name = name;
+		this.field = field;
 		// allocating space
 		teamX = new ArrayList<Player>();
 		teamO = new ArrayList<Player>();
@@ -51,6 +53,7 @@ public class Formation {
 			teamOtemplate.add(teamXtemplate.get(i));
 			teamOtemplate.get(i).setComputer(true);
 		}
+		field.mirror(teamOtemplate);
 	}
 	public String getName(){
 		return name;

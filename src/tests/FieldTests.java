@@ -9,10 +9,10 @@ import junit.framework.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import FieldFiles.Field;
-import FieldFiles.Formation;
-import FieldFiles.Player;
-import FieldFiles.Player.Positron;
+import fieldFiles.Field;
+import fieldFiles.Formation;
+import fieldFiles.Player;
+import fieldFiles.Player.Positron;
 
 public class FieldTests {
 

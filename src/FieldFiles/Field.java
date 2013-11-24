@@ -1,4 +1,4 @@
-package FieldFiles;
+package fieldFiles;
 
 import java.awt.Point;
 import java.io.FileNotFoundException;
@@ -46,7 +46,7 @@ public class Field {
 			String[] line = "nothing".split(",");
 			while(in.hasNext()){
 				name = in.nextLine();
-				formation = new Formation(name);
+				formation = new Formation(name, this);
 				line = in.nextLine().split(", ");
 				while(!line[0].equals("END")){
 					if(!line[0].equals("END")){
@@ -55,6 +55,7 @@ public class Field {
 					line = in.nextLine().split(", ");
 				}
 				formation.mirrorTeamXtemplate();
+				mirror(formation.getOtemplate());
 				formation.resetPlayers();
 				startFormations.put(name,formation);
 			}

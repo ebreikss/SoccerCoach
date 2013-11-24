@@ -1,4 +1,4 @@
-package FieldFiles;
+package fieldFiles;
 
 import java.awt.Graphics;
 
