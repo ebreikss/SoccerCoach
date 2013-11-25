@@ -1,5 +1,7 @@
 package fieldFiles;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,35 +11,82 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Field {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Field extends JPanel {
 	private final static int XDIM = 900;
 	private final static int YDIM = 675;
 	private final static int XPENALTYBOX = 120;
 	private final static int YPENALTYBOX = 300;
 	private final static int XGOALIEBOX = 60;
 	private final static int YGOALIEBOX = 135;
+	private final static int CENTERRAD = 100;
 	
 	private Ball ball;
 	
 	private Formation humanFormation;
 	private Formation compFormation;
-	private String startFormFile, cornerFile;
+	private String startFormFile;
 	private Map<String,Formation> startFormations;  // found out formation class will be useful so i made this hold formations
 	// instead of a list of players
 	private ArrayList<Player> humanTeam;
 	private ArrayList<Player> compTeam;
 
-	public Field(String startFormFile, String cornerFile) {
+	public Field(String startFormFile) {
 		super();
 		startFormations = new HashMap<String, Formation>();
 		this.startFormFile = startFormFile;
-		this.cornerFile = cornerFile;
-		loadConfigFiles(startFormFile, cornerFile);
+		//this.cornerFile = cornerFile;
+		loadConfigFiles(startFormFile);
+		switchFormation("WM", "Pyramid");
+		mirror(compTeam);
+		createLayout();
+
 	}
 	public void drag(){
 
 	}
-	public void loadConfigFiles(String startFormFile, String cornerFile){
+	
+	public void createLayout() {
+		setSize(XDIM, YDIM);
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		g.setColor(new Color(44,129,61));
+		g.fillRect(0, 0, XDIM+40, YDIM+40);
+		g.setColor(Color.white);
+		g.drawRect(0, 0, XDIM, YDIM);
+		g.drawLine(XDIM/2, 0, XDIM/2, YDIM);
+		// Penalty Boxes
+		g.drawRect(0, YDIM/2-YPENALTYBOX/2, XPENALTYBOX, YPENALTYBOX);
+		g.drawRect(XDIM-XPENALTYBOX, YDIM/2-YPENALTYBOX/2, XPENALTYBOX, YPENALTYBOX);
+		// GoalieBoes
+		g.drawRect(0, YDIM/2-YGOALIEBOX/2, XGOALIEBOX, YGOALIEBOX);
+		g.drawRect(XDIM-XGOALIEBOX, YDIM/2-YGOALIEBOX/2, XGOALIEBOX, YGOALIEBOX);
+		// arcs and circles
+		g.drawArc(-10, -10, 20, 20, 270, 90);
+		g.drawArc(-10, YDIM - 10, 20, 20, 360, 90);
+		g.drawArc(XDIM-10, YDIM - 10, 20, 20, 90, 90);
+		g.drawArc(XDIM-10, -10, 20, 20, 180, 90);
+		g.drawArc(XDIM-10, -10, 20, 20, 180, 90);
+		g.drawArc(2*XGOALIEBOX-CENTERRAD/2-20, (YDIM-CENTERRAD)/2, CENTERRAD, CENTERRAD, 295, 130);
+		g.drawArc(XDIM - 2*XGOALIEBOX-CENTERRAD/2+20, (YDIM-CENTERRAD)/2, CENTERRAD, CENTERRAD, 115, 130);
+		
+		g.drawOval((XDIM-CENTERRAD)/2, (YDIM-CENTERRAD)/2, CENTERRAD, CENTERRAD);
+		g.fillOval((XDIM-10)/2, (YDIM-10)/2, 10, 10);
+		g.fillOval((XPENALTYBOX+XGOALIEBOX)/2 - 5, (YDIM-10)/2, 10, 10);
+		g.fillOval(XDIM - (XPENALTYBOX+XGOALIEBOX)/2 - 5, (YDIM-10)/2, 10, 10);
+		
+		for (Player playa : humanTeam)
+			playa.draw(g);
+		for (Player playa : compTeam)
+			playa.draw(g);
+	}
+	
+	public void loadConfigFiles(String startFormFile){
 		try{
 			FileReader reader = new FileReader(startFormFile);
 			Scanner in = new Scanner(reader);
@@ -73,6 +122,9 @@ public class Field {
 	public void switchFormation(String humanFormation, String compFormation){
 		humanTeam = (ArrayList<Player>) startFormations.get(humanFormation).getXtemplate().clone();
 		compTeam = (ArrayList<Player>) startFormations.get(compFormation).getXtemplate().clone();
+		for (Player playa : compTeam) {
+			playa.setComputer(true);
+		}
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
 		Random rand = new Random();
@@ -192,4 +244,11 @@ public class Field {
 	public Formation getCompFormation(){
 		return compFormation;
 	}
+	
+	public static void main(String[] args) {
+		  Field gui = new Field("startFormsConfig.txt");
+		  gui.setVisible(true);
+		  
+	}
+
 }

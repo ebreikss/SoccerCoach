@@ -21,9 +21,8 @@ public class FieldTests {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		String startFormFile = "startFormsConfig";
-		String cornerFile = "cornerFile";
-		soccerField = new Field(startFormFile, cornerFile); // constructor also calls loadConfigFiles()
+		String startFormFile = "startFormsConfig.txt";
+		soccerField = new Field(startFormFile); // constructor also calls loadConfigFiles()
 
 		// if you notice more things that need to change, do it. 
 		// Constructors and parameters mostly, but don't be afraid to add functions, etc

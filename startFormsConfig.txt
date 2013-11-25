@@ -1,0 +1,52 @@
+Pyramid
+GOALIE, goalie, 15, 338
+BACK, leftBack, 110, 255
+BACK, rightBack, 110, 410
+MID, leftMid, 230, 203
+MID, centerMid, 230, 338
+MID, rightMid, 230, 473
+FORWARD, leftWing, 360, 95
+FORWARD, leftInside, 380, 192
+FORWARD, centerForward, 390, 338
+FORWARD, rightInside, 380, 480
+FORWARD, rightWing, 360, 576
+END
+Metodo
+GOALIE, goalie, 15, 338
+BACK, leftBack, 120, 225
+BACK, rightBack, 120, 450
+MID, leftMid, 230, 153
+MID, centerMid, 240, 337
+MID, rightMid, 230, 523
+FORWARD, leftWing, 380, 95
+FORWARD, leftInside, 320, 192
+FORWARD, centerForward, 400, 337
+FORWARD, rightInside, 320, 480
+FORWARD, rightWing, 380, 576
+END
+WM
+GOALIE, goalie, 15, 338
+BACK, leftBack, 120, 225
+BACK, centerBack, 120, 338
+BACK, rightBack, 120, 450
+MID, leftMid, 210, 252
+MID, rightMid, 210, 420
+FORWARD, leftWing, 390, 95
+FORWARD, leftInside, 290, 192
+FORWARD, centerForward, 410, 338
+FORWARD, rightInside, 290, 480
+FORWARD, rightWing, 390, 576
+END
+ModernDiamond
+GOALIE, goalie, 15, 338
+BACK, leftBack, 120, 225
+BACK, centerBack, 120, 338
+BACK, rightBack, 120, 450
+MID, leftWing, 290, 132
+MID, leftDefMid, 200, 255
+MID, leftOffMid, 380, 255
+MID, rightDefMid, 200, 420
+MID, rightOffMid, 380, 420
+MID, rightWing, 290, 543
+FORWARD, centerForward, 400, 338
+END

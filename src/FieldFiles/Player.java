@@ -34,6 +34,7 @@ public class Player extends Movable {
 	private Positron position;
 	private boolean computer;
 	private boolean isKicking = false; // for corner kicks
+	private final int PLAYERSIZE = 30;
 
 	public Player(){
 		// default just to make testing simple
@@ -62,7 +63,11 @@ public class Player extends Movable {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
+		g.setColor(position.value);
+		if (!computer)
+			g.fillRect((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
+		else
+			g.fillOval((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
 
 	}
 
