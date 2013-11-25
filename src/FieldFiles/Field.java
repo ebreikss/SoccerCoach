@@ -54,8 +54,6 @@ public class Field {
 					}
 					line = in.nextLine().split(", ");
 				}
-				formation.mirrorTeamXtemplate();
-				mirror(formation.getOtemplate());
 				formation.resetPlayers();
 				startFormations.put(name,formation);
 			}
@@ -179,8 +177,8 @@ public class Field {
 		// since we create a computer 'Formation' it seems logical to set compTeam to the teamXtemplate
 		this.compFormation = formation;
 		compFormation.resetPlayers();
-		mirror(compFormation.getOtemplate());
-		compTeam = (ArrayList<Player>) compFormation.getOtemplate().clone(); 
+		mirror(compFormation.getXtemplate());
+		compTeam = (ArrayList<Player>) compFormation.getTeamX(); 
 	}
 	public static int getXdim() {
 		return XDIM;
