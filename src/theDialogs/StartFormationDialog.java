@@ -38,13 +38,13 @@ public class StartFormationDialog extends JDialog {
 		add(cPanel, BorderLayout.EAST);
 		
 		JButton submitButton = new JButton("Submit");
-		ActionListener listener = new ButtonListener();
+		ActionListener listener = new ButtonListenerS();
 		submitButton.addActionListener(listener);
 		
 		add(submitButton, BorderLayout.SOUTH);
 	}
 	
-	class ButtonListener implements ActionListener
+	class ButtonListenerS implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{

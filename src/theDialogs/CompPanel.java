@@ -14,7 +14,6 @@ import javax.swing.JRadioButton;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import theDialogs.HumanPanel.ButtonListener;
 import fieldFiles.Formation;
 
 public class CompPanel extends JPanel{
@@ -26,7 +25,7 @@ public class CompPanel extends JPanel{
 		name = "";
 		compButtons = new HashMap<String, JRadioButton>();
 		bGroup = new ButtonGroup();
-		ActionListener listener = new ButtonListener();
+		ActionListener listener = new ButtonListenerC();
 		for(String key : startFormations.keySet()){
 			compButtons.put(key, new JRadioButton(key));
 		}
@@ -47,7 +46,7 @@ public class CompPanel extends JPanel{
 		return name;
 	}
 	
-	class ButtonListener implements ActionListener
+	class ButtonListenerC implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{

@@ -2,6 +2,7 @@ package fieldFiles;
 import java.awt.*;
 import java.util.Random;
 
+
 public class Player extends Movable {
 	public enum Positron {
 		GOALIE (Color.gray),
@@ -53,6 +54,7 @@ public class Player extends Movable {
 		this.name = name;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
+		directionAngle = 0;
 	}
 
 	@Override
@@ -70,10 +72,20 @@ public class Player extends Movable {
 			g.fillOval((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
 
 	}
+	
+	public void calculatDirection(int x, int y) {
+		double deltaX = x - xCoord;
+		double deltaY = -(y - yCoord); // cuz coords are flipped in CS...
+		
+		directionAngle = Math.tan(deltaY/deltaX) * 180 / Math.PI;
+		velocity = deltaX*Math.cos(Math.tan(deltaY/deltaX));
+		// velocity will be set to current / timestep
+	}
+
 
 	private void randomWalk() {
 		Random rand = new Random();
-		int randVel = rand.nextInt(Math.abs(velocity)) / 2;
+		double randVel = rand.nextInt((int) Math.abs(velocity)) / 2;
 		//System.out.println("Randomly Walked");
 
 		// x-direction
@@ -142,6 +154,15 @@ public class Player extends Movable {
 			yCoord -= yVelocity;
 		}
 	}
+	
+public boolean containsClick(int mouseX, int mouseY, Field f) {
+		
+		Rectangle rect = new Rectangle((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
+		if (rect.contains(new Point(mouseX, mouseY)))
+			return true;
+		return false;
+	}
+
 
 	///////////////////////////////////////
 
@@ -183,5 +204,9 @@ public class Player extends Movable {
 	}
 	public Positron getPosition(){
 		return position;
+	}
+
+	public void setPosition(Positron position) {
+		this.position = position;
 	}	
 }

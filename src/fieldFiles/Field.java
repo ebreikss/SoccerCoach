@@ -3,6 +3,8 @@ package fieldFiles;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -12,9 +14,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Field extends JPanel {
+public class Field extends JPanel implements MouseListener{
 	private final static int XDIM = 900;
 	private final static int YDIM = 675;
 	private final static int XPENALTYBOX = 120;
@@ -32,6 +35,7 @@ public class Field extends JPanel {
 	// instead of a list of players
 	private ArrayList<Player> humanTeam;
 	private ArrayList<Player> compTeam;
+	private Player selectedPlayer;
 
 	public Field(String startFormFile) {
 		super();
@@ -40,8 +44,9 @@ public class Field extends JPanel {
 		//this.cornerFile = cornerFile;
 		loadConfigFiles(startFormFile);
 		switchFormation("WM", "Pyramid");
-		mirror(compTeam);
 		createLayout();
+		
+		addMouseListener(this);
 
 	}
 	public void drag(){
@@ -114,18 +119,24 @@ public class Field extends JPanel {
 	}
 
 	public void whichPlayer(int x, int y){
-
+		
 	}
 	public void runSimulation(){
 
 	}
 	public void switchFormation(String humanFormation, String compFormation){
-		System.out.println(humanFormation);
-		humanTeam = (ArrayList<Player>) startFormations.get(humanFormation).getXtemplate().clone();
-		compTeam = (ArrayList<Player>) startFormations.get(compFormation).getXtemplate().clone();
+		this.humanFormation.setTeamXtemplate(startFormations.get(humanFormation).getXtemplate());
+		this.compFormation.setTeamXtemplate(startFormations.get(compFormation).getXtemplate());
+		this.humanFormation.resetPlayers();
+		this.compFormation.resetPlayers();
 		for (Player playa : compTeam) {
 			playa.setComputer(true);
 		}
+		for (Player playa : humanTeam) {
+			playa.setComputer(false);
+		}
+		mirror(compTeam);
+		repaint();
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
 		Random rand = new Random();
@@ -250,6 +261,51 @@ public class Field extends JPanel {
 		  Field gui = new Field("startFormsConfig.txt");
 		  gui.setVisible(true);
 		  
+	}
+	
+	///////////////////////////////////////////////////
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		boolean validPlayer = false;
+		for(Player playa : humanTeam){
+			if(playa.containsClick(e.getX(), e.getY(), this)){
+				selectedPlayer = playa;
+				validPlayer = true;
+			}
+		}
+		if(validPlayer = false){
+			JOptionPane.showMessageDialog(null, "That is an invalid choice, try again.", "OOPS!!", 
+					JOptionPane.INFORMATION_MESSAGE);
+			selectedPlayer = null;
+		}
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		try{
+			selectedPlayer.calculatDirection(e.getX(), e.getY());
+		}
+		catch(NullPointerException n){
+			JOptionPane.showMessageDialog(null, "That is an invalid choice, try again.", "OOPS!!", 
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

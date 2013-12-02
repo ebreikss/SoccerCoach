@@ -16,13 +16,24 @@ public class Formation implements Cloneable {
 		this.field = field;
 		// allocating space
 		teamX = new ArrayList<Player>();
+		for (int i = 0; i < 11; i++) {
+			teamX.add(new Player());
+		}
 		teamXtemplate = new ArrayList<Player>();
 	}
 
 	public void resetPlayers(){
 		// will be used initially to set the teams to the templates
 		// can be used to reset each team back to their templates
-		teamX = (ArrayList<Player>) teamXtemplate.clone();
+		for (int i = 0; i < 11; i++) {
+			teamX.get(i).setxCoord(teamXtemplate.get(i).getxCoord());
+			teamX.get(i).setyCoord(teamXtemplate.get(i).getyCoord());
+			teamX.get(i).setPosition(teamXtemplate.get(i).getPosition());
+		}	
+	}
+
+	public void setTeamXtemplate(ArrayList<Player> teamXtemplate) {
+		this.teamXtemplate = teamXtemplate;
 	}
 
 	@Override

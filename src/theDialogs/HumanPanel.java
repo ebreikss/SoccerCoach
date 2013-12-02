@@ -26,7 +26,7 @@ public class HumanPanel extends JPanel{
 		name = "";
 		humanButtons = new HashMap<String, JRadioButton>();
 		bGroup = new ButtonGroup();
-		ActionListener listener = new ButtonListener();
+		ActionListener listener = new ButtonListenerH();
 		for(String key : startFormations.keySet()){
 				humanButtons.put(key, new JRadioButton(key));
 		}
@@ -46,7 +46,7 @@ public class HumanPanel extends JPanel{
 		return name;
 	}
 	
-	class ButtonListener implements ActionListener
+	class ButtonListenerH implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{

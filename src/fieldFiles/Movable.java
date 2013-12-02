@@ -6,7 +6,7 @@ public abstract class Movable {
 	protected int xCoord;
 	protected int yCoord;
 	protected int radius;
-	protected int velocity;
+	protected double velocity;
 	protected double directionAngle;
 	
 	public abstract void simulate();
@@ -31,7 +31,7 @@ public abstract class Movable {
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
-	public int getVelocity() {
+	public double getVelocity() {
 		return velocity;
 	}
 	public void setVelocity(int velocity) {
