@@ -120,6 +120,7 @@ public class Field extends JPanel {
 
 	}
 	public void switchFormation(String humanFormation, String compFormation){
+		System.out.println(humanFormation);
 		humanTeam = (ArrayList<Player>) startFormations.get(humanFormation).getXtemplate().clone();
 		compTeam = (ArrayList<Player>) startFormations.get(compFormation).getXtemplate().clone();
 		for (Player playa : compTeam) {
