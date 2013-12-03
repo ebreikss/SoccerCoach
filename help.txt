@@ -1,0 +1,38 @@
+Help File Time!
+
+------------------------------------------
+	Soccer Coach Simulator!!!!
+------------------------------------------
+
+You are the Squares!
+The right is the Computer and it does what it wants.
+The initial conditions are set to Edit Positions and the formations are set to WM and Pyramid.
+If you click on the file menu you will get three options : 
+"Run Simulation"
+"Reset Players" and
+"Exit"
+Exit obviously exits.. 
+ 
+Run Simulation will run the animation of the players moving to the spot you want them to.
+	Before the simulation the computers can be given a favored direction 
+	(by doing the same thing you do for picking the human player end location) (They are still random though)
+	The higher the number you enter in the box, the longer it will take for the players to reach there designated location.
+	
+To choose where you want a player to go, Click the square and drag your mouse pointer to the desired location.
+
+Reset Players will reset the players' locations to what they were before you ran the simulation.
+
+If you look at the top of your screen you will see the "Mode" option.
+Click on it.
+You will see:
+"Start Formation"
+"Corner Kick"
+"Edit Positions"
+"Set Conditions"
+ 
+ Start formation allows you to set each side's formation.  Hit submit to see the changes you made!
+ Corner Kick sets up a corner kick.... Randomly
+ Edit Positions allows you to set up your own formations.  
+ Set conditions lets you click on a player and drag to set the ending location.
+ 
+ Made by Team NEWC!

@@ -71,6 +71,9 @@ public class Player extends Movable {
 			g.fillRect((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
 			g.setColor(Color.black);
 			g.drawRect((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
+			/*if(deltaX != 0){
+				drawLine(g);
+			}*/
 		}
 		else {
 			g.fillOval((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
@@ -79,13 +82,23 @@ public class Player extends Movable {
 		}
 
 	}
-	public void drawLine(Graphics g){
-		g.drawLine(xCoord, yCoord, (int)deltaX, (int)deltaY);
-	}
-	double deltaX;
-	double deltaY;
 	
+/*	public void drawLine(Graphics g){
+		if((xCoord - deltaX) == lineXInit){
+			g.setColor(position.value);
+			g.drawRect(xCoord, yCoord, PLAYERSIZE, PLAYERSIZE);
+			//g.drawLine((int)xCoord, (int)yCoord, (int)deltaX + (int)lineXInit, ((int)lineYInit - (int)deltaY));
+		}
+		else
+			g.drawLine((int)xCoord, (int)yCoord, (int)deltaX + (int)lineXInit, ((int)lineYInit - (int)deltaY));
+	}*/
+	double deltaX = 0;
+	double deltaY = 0;
+	double lineXInit = 0;
+	double lineYInit = 0;
 	public void calculatDirection(int x, int y) {
+		lineXInit = xCoord;
+		lineYInit = yCoord;
 		deltaX = x - xCoord;
 		deltaY = -(y - yCoord); // cuz coords are flipped in CS...
 		

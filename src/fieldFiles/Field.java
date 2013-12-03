@@ -349,8 +349,10 @@ public class Field extends JPanel implements MouseListener{
 				selectedPlayer.setxCoord(e.getX());
 				selectedPlayer.setyCoord(e.getY());
 				repaint();
-			} else
+			} else{
 				selectedPlayer.calculatDirection(e.getX(), e.getY());
+				repaint();
+			}
 		}
 		catch(NullPointerException n){
 			JOptionPane.showMessageDialog(null, "That is an invalid choice, try again.", "OOPS!!", 

@@ -129,8 +129,6 @@ public class CornerKickDialog extends JDialog{
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			System.out.println("kicking: " + kicking);
-			System.out.println("top: " + top);
 		    field.setupCornerKick(kicking, top);
 		}
 	}

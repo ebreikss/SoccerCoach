@@ -3,6 +3,7 @@ package fieldFiles;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -19,6 +20,7 @@ public class Display extends JFrame {
 		JMenu menu = new JMenu("File");
 		menu.add(createRunItem());
 		menu.add(createResetButton());
+		menu.add(createHelpButton());
 		menu.add(createFileExitItem());
 
 		return menu;
@@ -51,6 +53,22 @@ public class Display extends JFrame {
 				field.getCompFormation().resetPlayers();
 				field.mirror(field.getCompFormation().getTeamX());
 				repaint();
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	
+	private JMenuItem createHelpButton() {
+		JMenuItem item = new JMenuItem("Help");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					Runtime.getRuntime().exec("notepad help.txt");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 		item.addActionListener(new MenuItemListener());
