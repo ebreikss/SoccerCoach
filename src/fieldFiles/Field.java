@@ -39,7 +39,15 @@ public class Field extends JPanel implements MouseListener{
 	private Map<String,Formation> startFormations;  // found out formation class will be useful so i made this hold formations
 	private Player selectedPlayer;
 	private int timestep;
+	private int tempTimeS;
+	private boolean editMode;
 
+	public boolean isEditMode() {
+		return editMode;
+	}
+	public void setEditMode(boolean editMode) {
+		this.editMode = editMode;
+	}
 	public Field(String startFormFile) {
 		super();
 		startFormations = new HashMap<String, Formation>();
@@ -55,6 +63,7 @@ public class Field extends JPanel implements MouseListener{
 		addMouseListener(this);
 		
 		timestep = 0;
+		editMode = true;
 
 	}
 	public int getTimestep() {
@@ -62,6 +71,7 @@ public class Field extends JPanel implements MouseListener{
 	}
 	public void setTimestep(int timestep) {
 		this.timestep = timestep;
+		tempTimeS = timestep;
 	}
 	public void drag(){
 
@@ -144,20 +154,22 @@ public class Field extends JPanel implements MouseListener{
 			playa.setVelocity((int) (playa.getVelocity() / timestep));
 		
 		// Now simulate
-		for (int i = 0; i < timestep; i++) {
-			Timer t = new Timer(1000, new TimerListener());
-			t.start();
-		}
+		Timer t = new Timer(1000, new TimerListener());
+		t.start();
+		
 	}
 	
 	private class TimerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			if (timestep > 0) {
 			for (Player playa : humanFormation.getTeamX())
 				playa.move();
 			for (Player playa : compFormation.getTeamX())
 				playa.move();
 			repaint();
+			timestep--;
+			}
 		}
 	}
 	
@@ -246,7 +258,7 @@ public class Field extends JPanel implements MouseListener{
 			mirror(kicking);
 			mirror(defending);
 		}
-		
+		repaint();
 	}
 	
 	public void mirror(ArrayList <Player> playas) {
@@ -316,6 +328,12 @@ public class Field extends JPanel implements MouseListener{
 				validPlayer = true;
 			}
 		}
+		for(Player playa : compFormation.getTeamX()){
+			if(playa.containsClick(e.getX(), e.getY(), this)){
+				selectedPlayer = playa;
+				validPlayer = true;
+			}
+		}
 		if(validPlayer = false){
 			JOptionPane.showMessageDialog(null, "That is an invalid choice, try again.", "OOPS!!", 
 					JOptionPane.INFORMATION_MESSAGE);
@@ -327,7 +345,12 @@ public class Field extends JPanel implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		try{
-			selectedPlayer.calculatDirection(e.getX(), e.getY());
+			if (editMode) {
+				selectedPlayer.setxCoord(e.getX());
+				selectedPlayer.setyCoord(e.getY());
+				repaint();
+			} else
+				selectedPlayer.calculatDirection(e.getX(), e.getY());
 		}
 		catch(NullPointerException n){
 			JOptionPane.showMessageDialog(null, "That is an invalid choice, try again.", "OOPS!!", 

@@ -39,6 +39,7 @@ public class Formation implements Cloneable {
 			teamX.get(i).setxCoord(teamXtemplate.get(i).getxCoord());
 			teamX.get(i).setyCoord(teamXtemplate.get(i).getyCoord());
 			teamX.get(i).setPosition(teamXtemplate.get(i).getPosition());
+			teamX.get(i).setVelocity(0);
 		}	
 	}
 

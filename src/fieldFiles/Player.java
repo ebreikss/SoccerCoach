@@ -67,16 +67,27 @@ public class Player extends Movable {
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(position.value);
-		if (!computer)
+		if (!computer) {
 			g.fillRect((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
-		else
+			g.setColor(Color.black);
+			g.drawRect((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
+		}
+		else {
 			g.fillOval((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
+			g.setColor(Color.black);
+			g.drawOval((xCoord-PLAYERSIZE/2), (yCoord-PLAYERSIZE/2), PLAYERSIZE, PLAYERSIZE);
+		}
 
 	}
+	public void drawLine(Graphics g){
+		g.drawLine(xCoord, yCoord, (int)deltaX, (int)deltaY);
+	}
+	double deltaX;
+	double deltaY;
 	
 	public void calculatDirection(int x, int y) {
-		double deltaX = x - xCoord;
-		double deltaY = -(y - yCoord); // cuz coords are flipped in CS...
+		deltaX = x - xCoord;
+		deltaY = -(y - yCoord); // cuz coords are flipped in CS...
 		
 		directionAngle = Math.atan(deltaY/deltaX) * 180 / Math.PI;
 		

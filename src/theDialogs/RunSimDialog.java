@@ -21,7 +21,7 @@ public class RunSimDialog extends JDialog {
 	
 	public RunSimDialog(Field field) {
 		this.field = field;
-		setSize(new Dimension(200,100));
+		setSize(new Dimension(300,100));
 		setTitle("Set TimeStep for Simulation");
 		
 		timeBox = new JTextField();
