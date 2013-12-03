@@ -1,8 +1,9 @@
-Help File Time!
 
 ------------------------------------------
 	Soccer Coach Simulator!!!!
 ------------------------------------------
+
+Help File Time!
 
 You are the Squares!
 The right is the Computer and it does what it wants.
@@ -34,5 +35,6 @@ You will see:
  Corner Kick sets up a corner kick.... Randomly
  Edit Positions allows you to set up your own formations.  
  Set conditions lets you click on a player and drag to set the ending location.
- 
- Made by Team NEWC!
+
+------------------------------
+              Made by Team NEWC!

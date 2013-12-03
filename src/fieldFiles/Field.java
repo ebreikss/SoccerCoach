@@ -39,7 +39,6 @@ public class Field extends JPanel implements MouseListener{
 	private Map<String,Formation> startFormations;  // found out formation class will be useful so i made this hold formations
 	private Player selectedPlayer;
 	private int timestep;
-	private int tempTimeS;
 	private boolean editMode;
 
 	public boolean isEditMode() {
@@ -71,10 +70,6 @@ public class Field extends JPanel implements MouseListener{
 	}
 	public void setTimestep(int timestep) {
 		this.timestep = timestep;
-		tempTimeS = timestep;
-	}
-	public void drag(){
-
 	}
 	
 	public void createLayout() {
@@ -126,6 +121,7 @@ public class Field extends JPanel implements MouseListener{
 				name = in.nextLine();
 				formation = new Formation(name);
 				line = in.nextLine().split(", ");
+				// Go until we hit the end of a set of players, then move on to next formation
 				while(!line[0].equals("END")){
 					if(!line[0].equals("END")){
 						formation.getXtemplate().add(new Player(line[0], line[1], Integer.parseInt(line[2]), Integer.parseInt(line[3])));
@@ -139,12 +135,8 @@ public class Field extends JPanel implements MouseListener{
 		catch(FileNotFoundException e){
 
 		}
-
 	}
 
-	public void whichPlayer(int x, int y){
-		
-	}
 	public void runSimulation() {
 		
 		// scale velocity
@@ -162,6 +154,7 @@ public class Field extends JPanel implements MouseListener{
 	private class TimerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// This is what makes the animation occur
 			if (timestep > 0) {
 			for (Player playa : humanFormation.getTeamX())
 				playa.move();
@@ -174,6 +167,7 @@ public class Field extends JPanel implements MouseListener{
 	}
 	
 	public void switchFormation(String humanFormation, String compFormation){
+		// Want to make sure we update in regards to templates, watching the pointers
 		this.humanFormation.setTeamXtemplate(startFormations.get(humanFormation).getXtemplate());
 		this.compFormation.setTeamXtemplate(startFormations.get(compFormation).getXtemplate());
 		this.humanFormation.resetPlayers();
@@ -268,7 +262,7 @@ public class Field extends JPanel implements MouseListener{
 	
 	
 	public void setupFreeKick(boolean youAreKicking, Point ballLocation){
-
+		// Not enough time
 	}
 
 	//////////////////////////////////////////
@@ -282,9 +276,14 @@ public class Field extends JPanel implements MouseListener{
 	public ArrayList getCompTeam(){
 		return compFormation.getTeamX();
 	}
+	
+	// -------------------------------------------------------
+	// These were removed when we realized that the way we originally implemented resetting the formations was
+	//    also resetting the pointers.  We didn't want that to be happening.
+	
 //	public void setHumanFormation(Formation formation) {
 //		this.humanFormation = formation;
-//		humanTeam = (ArrayList<Player>) humanFormation.getXtemplate().clone();
+//		humanTeam = (ArrayList<Player>) humanFormation.getXtemplate();
 //	}
 //	public void setCompFormation(Formation formation) {
 //		// since we create a computer 'Formation' it seems logical to set compTeam to the teamXtemplate
@@ -293,6 +292,8 @@ public class Field extends JPanel implements MouseListener{
 //		mirror(compFormation.getXtemplate());
 //		compTeam = (ArrayList<Player>) compFormation.getTeamX(); 
 //	}
+	// -------------------------------------------------------
+	
 	public static int getXdim() {
 		return XDIM;
 	}
@@ -309,7 +310,6 @@ public class Field extends JPanel implements MouseListener{
 	public static void main(String[] args) {
 		  Field gui = new Field("startFormsConfig.txt");
 		  gui.setVisible(true);
-		  
 	}
 	
 	///////////////////////////////////////////////////
@@ -358,8 +358,6 @@ public class Field extends JPanel implements MouseListener{
 			JOptionPane.showMessageDialog(null, "That is an invalid choice, try again.", "OOPS!!", 
 					JOptionPane.INFORMATION_MESSAGE);
 		}
-		
-		
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {

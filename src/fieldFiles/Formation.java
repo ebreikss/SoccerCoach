@@ -3,16 +3,14 @@ import java.util.*;
 import java.awt.*;
 
 public class Formation implements Cloneable {
-	public static final int FREE_KICK_RADIUS = 50; // Incorrect
+	public static final int FREE_KICK_RADIUS = 50; // unused
 
-	private ArrayList<Player> teamX; // human
-	private ArrayList<Player> teamXtemplate; // human players
+	private ArrayList<Player> teamX;
+	private ArrayList<Player> teamXtemplate;
 	
 	private String name;
-	//private Field field;
 
 	public Formation(){
-		//this.field = field;
 		// allocating space
 		teamX = new ArrayList<Player>();
 		for (int i = 0; i < 11; i++) {
@@ -23,7 +21,6 @@ public class Formation implements Cloneable {
 	
 	public Formation(String name){
 		this.name = name;
-		//this.field = field;
 		// allocating space
 		teamX = new ArrayList<Player>();
 		for (int i = 0; i < 11; i++) {
