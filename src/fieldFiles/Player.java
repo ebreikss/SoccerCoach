@@ -58,9 +58,10 @@ public class Player extends Movable {
 	}
 
 	@Override
-	public void simulate() {
-		// TODO Auto-generated method stub
-
+	public void simulate(int n) {
+		// DEPRECIATIED!!
+		for (int i = 0; i < n; i++)
+			move();
 	}
 
 	@Override
@@ -77,9 +78,16 @@ public class Player extends Movable {
 		double deltaX = x - xCoord;
 		double deltaY = -(y - yCoord); // cuz coords are flipped in CS...
 		
-		directionAngle = Math.tan(deltaY/deltaX) * 180 / Math.PI;
-		velocity = deltaX*Math.cos(Math.tan(deltaY/deltaX));
-		// velocity will be set to current / timestep
+		directionAngle = Math.atan(deltaY/deltaX) * 180 / Math.PI;
+		
+		if (deltaX <= 0) 
+			directionAngle += 180;
+		else if (deltaY <= 0)
+			directionAngle += 360;
+		else { /* it's fine */ }
+		
+		velocity = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		// velocity will be set to current / timestep eventually
 	}
 
 
@@ -103,6 +111,8 @@ public class Player extends Movable {
 
 	@Override
 	public void move() {
+
+		
 		double radianAngle = directionAngle * Math.PI / 180;
 		int xVelocity = (int) (Math.cos(radianAngle) * velocity);
 		int yVelocity = (int) (Math.sin(radianAngle) * velocity);

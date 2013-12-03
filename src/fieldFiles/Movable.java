@@ -9,7 +9,7 @@ public abstract class Movable {
 	protected double velocity;
 	protected double directionAngle;
 	
-	public abstract void simulate();
+	public abstract void simulate(int n);
 	public abstract void draw(Graphics g);
 	
 	

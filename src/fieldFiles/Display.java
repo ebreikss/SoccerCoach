@@ -6,15 +6,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import theDialogs.RunSimDialog;
 import theDialogs.StartFormationDialog;
 
 public class Display extends JFrame {
 	
 	private Field field;
 	private StartFormationDialog startFormDialog;
+	private RunSimDialog runSimDialog;
 	
 	private JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
+		menu.add(createRunItem());
 		menu.add(createFileExitItem());
 
 		return menu;
@@ -25,6 +28,16 @@ public class Display extends JFrame {
 		menu.add(createCornerKick());
 
 		return menu;
+	}
+	private JMenuItem createRunItem() {
+		JMenuItem item = new JMenuItem("Run Simulation");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				runSimDialog.setVisible(true);
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
 	}
 	private JMenuItem createFileExitItem(){
 		JMenuItem item = new JMenuItem("Exit");
@@ -76,6 +89,7 @@ public class Display extends JFrame {
 				menuBar.add(createModeMenu());
 				
 				startFormDialog = new StartFormationDialog(field.getFormationList(), field);
+				runSimDialog = new RunSimDialog(field);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

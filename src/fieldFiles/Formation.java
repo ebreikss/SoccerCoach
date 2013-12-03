@@ -9,11 +9,21 @@ public class Formation implements Cloneable {
 	private ArrayList<Player> teamXtemplate; // human players
 	
 	private String name;
-	private Field field;
+	//private Field field;
 
-	public Formation(String name, Field field){
+	public Formation(){
+		//this.field = field;
+		// allocating space
+		teamX = new ArrayList<Player>();
+		for (int i = 0; i < 11; i++) {
+			teamX.add(new Player());
+		}
+		teamXtemplate = new ArrayList<Player>();
+	}
+	
+	public Formation(String name){
 		this.name = name;
-		this.field = field;
+		//this.field = field;
 		// allocating space
 		teamX = new ArrayList<Player>();
 		for (int i = 0; i < 11; i++) {

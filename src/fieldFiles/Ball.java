@@ -4,7 +4,7 @@ import java.awt.*;
 public class Ball extends Movable {
 
 	@Override
-	public void simulate() {
+	public void simulate(int n) {
 		// TODO Auto-generated method stub
 		
 	}

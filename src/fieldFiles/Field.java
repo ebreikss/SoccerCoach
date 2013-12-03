@@ -3,6 +3,8 @@ package fieldFiles;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
@@ -16,6 +18,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Field extends JPanel implements MouseListener{
 	private final static int XDIM = 900;
@@ -28,26 +31,37 @@ public class Field extends JPanel implements MouseListener{
 	
 	private Ball ball;
 	
+	// These contain the human and comp players
 	private Formation humanFormation;
 	private Formation compFormation;
+	
 	private String startFormFile;
 	private Map<String,Formation> startFormations;  // found out formation class will be useful so i made this hold formations
-	// instead of a list of players
-	private ArrayList<Player> humanTeam;
-	private ArrayList<Player> compTeam;
 	private Player selectedPlayer;
+	private int timestep;
 
 	public Field(String startFormFile) {
 		super();
 		startFormations = new HashMap<String, Formation>();
+		humanFormation = new Formation();
+		compFormation = new Formation();
 		this.startFormFile = startFormFile;
-		//this.cornerFile = cornerFile;
 		loadConfigFiles(startFormFile);
-		switchFormation("WM", "Pyramid");
+		
+		switchFormation("WM","Pyramid");
+		
 		createLayout();
 		
 		addMouseListener(this);
+		
+		timestep = 0;
 
+	}
+	public int getTimestep() {
+		return timestep;
+	}
+	public void setTimestep(int timestep) {
+		this.timestep = timestep;
 	}
 	public void drag(){
 
@@ -85,9 +99,9 @@ public class Field extends JPanel implements MouseListener{
 		g.fillOval((XPENALTYBOX+XGOALIEBOX)/2 - 5, (YDIM-10)/2, 10, 10);
 		g.fillOval(XDIM - (XPENALTYBOX+XGOALIEBOX)/2 - 5, (YDIM-10)/2, 10, 10);
 		
-		for (Player playa : humanTeam)
+		for (Player playa : humanFormation.getTeamX())
 			playa.draw(g);
-		for (Player playa : compTeam)
+		for (Player playa : compFormation.getTeamX())
 			playa.draw(g);
 	}
 	
@@ -100,7 +114,7 @@ public class Field extends JPanel implements MouseListener{
 			String[] line = "nothing".split(",");
 			while(in.hasNext()){
 				name = in.nextLine();
-				formation = new Formation(name, this);
+				formation = new Formation(name);
 				line = in.nextLine().split(", ");
 				while(!line[0].equals("END")){
 					if(!line[0].equals("END")){
@@ -121,32 +135,55 @@ public class Field extends JPanel implements MouseListener{
 	public void whichPlayer(int x, int y){
 		
 	}
-	public void runSimulation(){
-
+	public void runSimulation() {
+		
+		// scale velocity
+		for (Player playa : humanFormation.getTeamX())
+			playa.setVelocity((int) (playa.getVelocity() / timestep));
+		for (Player playa : compFormation.getTeamX())
+			playa.setVelocity((int) (playa.getVelocity() / timestep));
+		
+		// Now simulate
+		for (int i = 0; i < timestep; i++) {
+			Timer t = new Timer(1000, new TimerListener());
+			t.start();
+		}
 	}
+	
+	private class TimerListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for (Player playa : humanFormation.getTeamX())
+				playa.move();
+			for (Player playa : compFormation.getTeamX())
+				playa.move();
+			repaint();
+		}
+	}
+	
 	public void switchFormation(String humanFormation, String compFormation){
 		this.humanFormation.setTeamXtemplate(startFormations.get(humanFormation).getXtemplate());
 		this.compFormation.setTeamXtemplate(startFormations.get(compFormation).getXtemplate());
 		this.humanFormation.resetPlayers();
 		this.compFormation.resetPlayers();
-		for (Player playa : compTeam) {
+		for (Player playa : this.compFormation.getTeamX()) {
 			playa.setComputer(true);
 		}
-		for (Player playa : humanTeam) {
+		for (Player playa : this.humanFormation.getTeamX()) {
 			playa.setComputer(false);
 		}
-		mirror(compTeam);
+		mirror( this.compFormation.getTeamX());
 		repaint();
 	}
 	public void setupCornerKick(boolean youAreKicking, boolean topCorner){
 		Random rand = new Random();
 		ArrayList<Player> kicking, defending;
 		if (youAreKicking) {
-			kicking = humanTeam;
-			defending = compTeam;
+			kicking = humanFormation.getTeamX();
+			defending = compFormation.getTeamX();
 		} else {
-			kicking = compTeam;
-			defending = humanTeam;
+			kicking = compFormation.getTeamX();
+			defending = humanFormation.getTeamX();
 		}
 		
 		boolean midset = false;
@@ -228,22 +265,22 @@ public class Field extends JPanel implements MouseListener{
 		return startFormations;
 	}
 	public ArrayList getHumanTeam(){
-		return humanTeam;
+		return humanFormation.getTeamX();
 	}
 	public ArrayList getCompTeam(){
-		return compTeam;
+		return compFormation.getTeamX();
 	}
-	public void setHumanFormation(Formation formation) {
-		this.humanFormation = formation;
-		humanTeam = (ArrayList<Player>) humanFormation.getXtemplate().clone();
-	}
-	public void setCompFormation(Formation formation) {
-		// since we create a computer 'Formation' it seems logical to set compTeam to the teamXtemplate
-		this.compFormation = formation;
-		compFormation.resetPlayers();
-		mirror(compFormation.getXtemplate());
-		compTeam = (ArrayList<Player>) compFormation.getTeamX(); 
-	}
+//	public void setHumanFormation(Formation formation) {
+//		this.humanFormation = formation;
+//		humanTeam = (ArrayList<Player>) humanFormation.getXtemplate().clone();
+//	}
+//	public void setCompFormation(Formation formation) {
+//		// since we create a computer 'Formation' it seems logical to set compTeam to the teamXtemplate
+//		this.compFormation = formation;
+//		compFormation.resetPlayers();
+//		mirror(compFormation.getXtemplate());
+//		compTeam = (ArrayList<Player>) compFormation.getTeamX(); 
+//	}
 	public static int getXdim() {
 		return XDIM;
 	}
@@ -271,8 +308,9 @@ public class Field extends JPanel implements MouseListener{
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
+		selectedPlayer = null;
 		boolean validPlayer = false;
-		for(Player playa : humanTeam){
+		for(Player playa : humanFormation.getTeamX()){
 			if(playa.containsClick(e.getX(), e.getY(), this)){
 				selectedPlayer = playa;
 				validPlayer = true;
@@ -283,6 +321,7 @@ public class Field extends JPanel implements MouseListener{
 					JOptionPane.INFORMATION_MESSAGE);
 			selectedPlayer = null;
 		}
+		validPlayer = false;
 		
 	}
 	@Override
